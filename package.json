@@ -1,0 +1,37 @@
+{
+  "name": "rename-fn",
+  "version": "0.0.0",
+  "description": "Rename a function",
+  "license": "MIT",
+  "repository": "sindresorhus/rename-fn",
+  "author": {
+    "name": "Sindre Sorhus",
+    "email": "sindresorhus@gmail.com",
+    "url": "sindresorhus.com"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "rename",
+    "function",
+    "func",
+    "fn",
+    "set",
+    "infer",
+    "change"
+  ],
+  "devDependencies": {
+    "ava": "*",
+    "xo": "*"
+  },
+  "xo": {
+    "esnext": true
+  }
+}
