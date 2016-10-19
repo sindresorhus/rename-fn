@@ -49,6 +49,11 @@ Type: `string`
 New name.
 
 
+## Related
+
+- [mimic-fn](https://github.com/sindresorhus/mimic-fn) - Make a function mimic another one
+
+
 ## License
 
 MIT © [Sindre Sorhus](https://sindresorhus.com)
