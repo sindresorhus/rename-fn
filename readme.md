@@ -1,4 +1,4 @@
-# rename-fn [![Build Status](https://travis-ci.org/sindresorhus/rename-fn.svg?branch=master)](https://travis-ci.org/sindresorhus/rename-fn)
+# rename-fn
 
 > Rename a function
 
