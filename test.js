@@ -135,6 +135,11 @@ this.stuff = stuff;
 			string: 'set(){}'
 		},
 		{
+			function: ({ getter(){} }.getter),
+			name: 'setter',
+			string: 'setter(){}'
+		},
+		{
 			function: ({ *a(){} }.a),
 			name: 'b',
 			string: '*b(){}'

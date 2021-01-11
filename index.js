@@ -12,7 +12,7 @@ module.exports = (fn, name) => {
 				.startsWith('(')
 		) &&
 		functionString.indexOf('class') !== 0 &&
-		(!/^(get|set)/.test(functionString) || !functionString.replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*/g, '').trim().slice(3).startsWith('('))
+		(!/^(get|set)/.test(functionString) || !functionString.slice(fn.name.length).replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*/g, '').trim().startsWith('('))
 	) {
 		const captured = /^((?:get|set)?(?:async\s*)?(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\*?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\(/.exec(functionString);
 		fn.toString = (() => {
@@ -29,7 +29,7 @@ module.exports = (fn, name) => {
 		}
 	} else if (/^(get|set)/.test(functionString)) {
 		fn.toString = (() => {
-			return name + functionString.slice(3);
+			return name + functionString.slice(fn.name.length);
 			/* eslint-disable-next-line no-extra-bind */
 		}).bind(fn);
 	}
