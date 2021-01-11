@@ -130,6 +130,11 @@ this.stuff = stuff;
 			string: 'b(){}'
 		},
 		{
+			function: ({ get(){} }.get),
+			name: 'set',
+			string: 'set(){}'
+		},
+		{
 			function: ({ *a(){} }.a),
 			name: 'b',
 			string: '*b(){}'

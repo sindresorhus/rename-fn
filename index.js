@@ -6,11 +6,13 @@ module.exports = (fn, name) => {
 		!(
 			!/^(?:async\s*)?(?:(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\*?.*?\s*(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n)\s*)*\(/.test(functionString) ||
 			functionString
-				.replace(/(async|function|\s*|(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)/g, '')
+				.replace(/(async|function|\s*)/g, '')
 				.replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))/g)
 				.trim()
 				.startsWith('(')
-		) && functionString.indexOf('class') !== 0
+		) &&
+		functionString.indexOf('class') !== 0 &&
+		(!/^(get|set)/.test(functionString) || !functionString.replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*/g, '').trim().slice(3).startsWith('('))
 	) {
 		const captured = /^((?:get|set)?(?:async\s*)?(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\*?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\(/.exec(functionString);
 		fn.toString = (() => {
@@ -25,6 +27,11 @@ module.exports = (fn, name) => {
 				/* eslint-disable-next-line no-extra-bind */
 			}).bind(fn);
 		}
+	} else if (/^(get|set)/.test(functionString)) {
+		fn.toString = (() => {
+			return name + functionString.slice(3);
+			/* eslint-disable-next-line no-extra-bind */
+		}).bind(fn);
 	}
 
 	return fn;
