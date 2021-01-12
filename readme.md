@@ -4,13 +4,11 @@
 
 JavaScript engines are very good at [inferring function names](http://www.2ality.com/2015/09/function-names-es6.html). You probably don't need this unless you want a different name.
 
-
 ## Install
 
+```sh
+npm install --save rename-fn
 ```
-$ npm install --save rename-fn
-```
-
 
 ## Usage
 
@@ -31,14 +29,13 @@ console.log(foo.name);
 //=> 'unicorn' 😁
 ```
 
-
 ## API
 
 ### renameFn(fn, name)
 
 #### fn
 
-Type: `Function`
+Type: `function`
 
 Function to rename.
 
@@ -46,13 +43,11 @@ Function to rename.
 
 Type: `string`
 
-New name.
-
+The new name.
 
 ## Related
 
 - [mimic-fn](https://github.com/sindresorhus/mimic-fn) - Make a function mimic another one
-
 
 ## License
 
