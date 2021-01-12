@@ -6,8 +6,8 @@ JavaScript engines are very good at [inferring function names](http://www.2ality
 
 ## Install
 
-```sh
-npm install --save rename-fn
+```
+npm install rename-fn
 ```
 
 ## Usage
