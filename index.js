@@ -15,8 +15,8 @@ module.exports = (fn, name) => {
 		(
 			/^(?:async\s*)?(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(?:\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
 			!functionString
-				.replace(/(async|function|\s*)/g, '')
-				.replace(/(\/\*[^]*?\*\/|\/\/[^]*?\n)/g)
+				.replace(/async|function|\s*/g, '')
+				.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
 				.trim()
 				.startsWith('(')
 		) || functionString.indexOf('class') === 0
