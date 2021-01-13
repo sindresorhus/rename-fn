@@ -23,9 +23,9 @@ module.exports = (fn, name) => {
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
-			// 	1. Not a class, or a method starting with get/set (all other functions and methods)
-			// 	2. Classes
-			// 	3. Methods with their name as get*/set*
+			//	1. Not a class, or a method starting with get/set (all other functions and methods)
+			//	2. Classes
+			//	3. Methods with their name as get*/set*
 			if (
 				functionString.indexOf('class') !== 0 &&
 				(!/^(get|set)/.test(functionString) || !functionString.slice(fn.name.length).replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*/g, '').trim().startsWith('('))
