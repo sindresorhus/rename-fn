@@ -19,7 +19,7 @@ module.exports = (fn, name) => {
 				.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
 				.trim()
 				.startsWith('(')
-		) || functionString.indexOf('class') === 0
+		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?(\r\n|\r|\n)\s*/g, '').startsWith('{'))
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
@@ -34,7 +34,7 @@ module.exports = (fn, name) => {
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
-			if (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?(\r\n|\r|\n)\s*/g, '').startsWith('{')) {
+			if (functionString.indexOf('class') === 0) {
 				const captured = /^(class\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*)([^]*?)\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*(?:extends|{)/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}

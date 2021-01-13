@@ -140,6 +140,11 @@ this.stuff = stuff;
 			string: 'setter(){}'
 		},
 		{
+			function: async functionA => {},
+			name: 'functionB',
+			string: 'async functionA => {}'
+		},
+		{
 			function: ({ *a(){} }.a),
 			name: 'b',
 			string: '*b(){}'
