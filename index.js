@@ -13,10 +13,10 @@ module.exports = (fn, name) => {
 	//	2. A function without a name, e.g. function() {}
 	if (
 		(
-			/^(?:async\s*)?(?:(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\*?.*?\s*(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n)\s*)*\(/.test(functionString) &&
+			/^(?:async\s*)?(?:(\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*\*?.*?\s*(?:\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
 			!functionString
 				.replace(/(async|function|\s*)/g, '')
-				.replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))/g)
+				.replace(/(\/\*[^]*?\*\/|\/\/[^]*?\n)/g)
 				.trim()
 				.startsWith('(')
 		) || functionString.indexOf('class') === 0
@@ -28,14 +28,14 @@ module.exports = (fn, name) => {
 			//	3. Methods with their name as get*/set*
 			if (
 				functionString.indexOf('class') !== 0 &&
-				(!/^(get|set)/.test(functionString) || !functionString.slice(fn.name.length).replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*/g, '').trim().startsWith('('))
+				(!/^(get|set)/.test(functionString) || !functionString.slice(fn.name.length).replace(/\s/g, '').replace(/(\/\*[^]*?\*\/|\/\/[^]*?\n)\s*/g, '').trim().startsWith('('))
 			) {
-				const captured = /^((?:get|set)?(?:async\s*)?(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\*?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*\(/.exec(functionString);
+				const captured = /^((?:get|set)?(?:async\s*)?(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*(?:function)?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*\*?\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*\(/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
 			if (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?(\r\n|\r|\n)\s*/g, '').startsWith('{')) {
-				const captured = /^(class\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?(?:\r\n|\r|\n))\s*)*(?:extends|{)/.exec(functionString);
+				const captured = /^(class\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*)([^]*?)\s*(?:(?:\/\*[^]*?\*\/|\/\/[^]*?\n)\s*)*(?:extends|{)/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
