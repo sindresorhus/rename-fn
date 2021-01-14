@@ -145,6 +145,16 @@ this.stuff = stuff;
 			string: 'async functionA => {}'
 		},
 		{
+			function: ({ async(){} }.async),
+			name: 'asyncStuff',
+			string: 'asyncStuff(){}'
+		},
+		{
+			function: ({ functionA(){} }.functionA),
+			name: 'functionB',
+			string: 'functionB(){}'
+		},
+		{
 			function: ({ *a(){} }.a),
 			name: 'b',
 			string: '*b(){}'
