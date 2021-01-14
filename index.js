@@ -38,19 +38,16 @@ module.exports = (fn, name) => {
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
-			//	1. Not a class, or a method starting with get/set (all other functions and methods)
-			//	2. Classes
+			//	1. Classes
+			//	2. Not a class, or a method starting with get/set (all other functions and methods)
 			//	3. Methods with their name as get*/set*/async*/function*
-			if (
-				functionString.indexOf('class') !== 0 &&
-				(!edgeCaseMethodNameReg.test(functionString) || !nameOfMethod(functionString).replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').trim().startsWith('('))
-			) {
-				const captured = /^((?:get|set|async)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*\*?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\(/.exec(functionString);
+			if (functionString.indexOf('class') === 0) {
+				const captured = /^(class\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(extends|{)/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
-			if (functionString.indexOf('class') === 0) {
-				const captured = /^(class\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(extends|{)/.exec(functionString);
+			if (!edgeCaseMethodNameReg.test(functionString) || !nameOfMethod(functionString).replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').trim().startsWith('(')) {
+				const captured = /^((?:get|set|async)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*\*?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\(/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
