@@ -45,12 +45,12 @@ module.exports = (fn, name) => {
 				functionString.indexOf('class') !== 0 &&
 				(!edgeCaseMethodNameReg.test(functionString) || !nameOfMethod(functionString).replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').trim().startsWith('('))
 			) {
-				const captured = /^((?:get|set)?(?:async\s*)?(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*\*?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*\(/.exec(functionString);
+				const captured = /^((?:get|set|async)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*\*?\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\(/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
 			if (functionString.indexOf('class') === 0) {
-				const captured = /^(class\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*(?:extends|{)/.exec(functionString);
+				const captured = /^(class\s*(?:\/(?:\*[^]*?\*\/|\/.*?\n)\s*)*)(.*?)\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(extends|{)/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
 			}
 
