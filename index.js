@@ -20,7 +20,7 @@ module.exports = (fn, name) => {
 	//	2. A function without a name, e.g. function() {}
 	if (
 		(
-			/^(?:async\s*)?(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(?:\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
+			/^(async\s*)?(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*(function)?\s*(\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
 			(
 				!functionString
 					.replace(/async|function|\s*/g, '')
@@ -34,7 +34,7 @@ module.exports = (fn, name) => {
 						.trim()
 				)
 			)
-		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?(\r\n|\r|\n)\s*/g, '').startsWith('{'))
+		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '').startsWith('{'))
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
