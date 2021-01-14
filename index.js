@@ -20,21 +20,21 @@ module.exports = (fn, name) => {
 	//	2. A function without a name, e.g. function() {}
 	if (
 		(
-			/^(async\s*)?(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*(function)?\s*(\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
+			/^(async\s*)?(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
 			(
 				!functionString
-					.replace(/async|function|\s*/g, '')
+					.replace(/async|function|\s/g, '')
 					.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
 					.trim()
 					.startsWith('(') ||
 				/^\(.*?\)(?!=>)/.test(
 					functionString
-						.replace(/async|\s*/g, '')
+						.replace(/async|\s/g, '')
 						.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
 						.trim()
 				)
 			)
-		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s*/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '').startsWith('{'))
+		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '').startsWith('{'))
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
