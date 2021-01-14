@@ -18,23 +18,15 @@ module.exports = (fn, name) => {
 	// Make sure that the function is not:
 	//	1. An arrow function (can't have a name)
 	//	2. A function without a name, e.g. function() {}
+	// If the above fail, then a class with a name is fine
 	if (
 		(
 			/^(async\s*)?(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/.*?\n\s*)*\(/.test(functionString) &&
 			(
-				!functionString
-					.replace(/async|function|\s/g, '')
-					.replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '')
-					.trim()
-					.startsWith('(') ||
-				/^\(.*?\)(?!=>)/.test(
-					functionString
-						.replace(/async|\s/g, '')
-						.replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '')
-						.trim()
-				)
+				!functionString.replace(/async|function|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('(') ||
+				/^\(.*?\)(?!=>)/.test(functionString.replace(/async|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, ''))
 			)
-		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').startsWith('{'))
+		) || (functionString.indexOf('class') === 0 && !functionString.replace(/class|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('{'))
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
