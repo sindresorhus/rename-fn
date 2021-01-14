@@ -20,21 +20,21 @@ module.exports = (fn, name) => {
 	//	2. A function without a name, e.g. function() {}
 	if (
 		(
-			/^(async\s*)?(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/[^]*?\n\s*)*\(/.test(functionString) &&
+			/^(async\s*)?(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/.*?\n\s*)*\(/.test(functionString) &&
 			(
 				!functionString
 					.replace(/async|function|\s/g, '')
-					.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
+					.replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '')
 					.trim()
 					.startsWith('(') ||
 				/^\(.*?\)(?!=>)/.test(
 					functionString
 						.replace(/async|\s/g, '')
-						.replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '')
+						.replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '')
 						.trim()
 				)
 			)
-		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '').startsWith('{'))
+		) || (functionString.indexOf('class') === 0 && !functionString.replace('class', '').replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').startsWith('{'))
 	) {
 		fn.toString = (function toString() {
 			// The function can fall in 3 categories:
@@ -43,7 +43,7 @@ module.exports = (fn, name) => {
 			//	3. Methods with their name as get*/set*/async*/function*
 			if (
 				functionString.indexOf('class') !== 0 &&
-				(!edgeCaseMethodNameReg.test(functionString) || !nameOfMethod(functionString).replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/[^]*?\n/g, '').trim().startsWith('('))
+				(!edgeCaseMethodNameReg.test(functionString) || !nameOfMethod(functionString).replace(/\s/g, '').replace(/\/\*[^]*?\*\/|\/\/.*?\n/g, '').trim().startsWith('('))
 			) {
 				const captured = /^((?:get|set)?(?:async\s*)?(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*(?:function)?\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\*?\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*)(.*?)\s*(?:\/(?:\*[^]*?\*\/|\/[^]*?\n)\s*)*\(/.exec(functionString);
 				return functionString.slice(0, captured[1].length) + name + functionString.slice(captured[1].length + captured[2].length);
