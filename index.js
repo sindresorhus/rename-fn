@@ -15,20 +15,20 @@ module.exports = (fn, name) => {
 
 	const edgeCaseMethodNameReg = /^(get|set|async|function)/;
 
-	// Make sure that the function is not:
-	//	1. An arrow function (can't have a name)
-	//	2. A function without a name, e.g. function() {}
-	// If the above fail, then a class with a name is fine
-	if (
-		(
-			/^(async\s*)?(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/.*?\n\s*)*\(/.test(functionString) &&
+	fn.toString = function toString() {
+		// Make sure that the function is not:
+		//	1. An arrow function (can't have a name)
+		//	2. A function without a name, e.g. function() {}
+		// If the above fail, then a class with a name is fine
+		if (
 			(
-				!functionString.replace(/async|function|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('(') ||
-				/^\(.*?\)(?!=>)/.test(functionString.replace(/async|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, ''))
-			)
-		) || (functionString.startsWith('class') && !functionString.replace(/class|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('{'))
-	) {
-		fn.toString = function toString() {
+				/^(async\s*)?(\/(\*[^]*?\*\/|\/.*?\n)\s*)*(function)?\s*(\/(\*[^]*?\*\/|\/.*?\n)\s*)*\*?.*?\s*(\/\*[^]*?\*\/|\/\/.*?\n\s*)*\(/.test(functionString) &&
+				(
+					!functionString.replace(/async|function|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('(') ||
+					/^\(.*?\)(?!=>)/.test(functionString.replace(/async|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, ''))
+				)
+			) || (functionString.startsWith('class') && !functionString.replace(/class|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('{'))
+		) {
 			// The function can fall in 3 categories:
 			//	1. Classes
 			//	2. Not a class, or a method starting with get/set (all other functions and methods)
@@ -42,8 +42,10 @@ module.exports = (fn, name) => {
 			}
 
 			return name + nameOfMethod(functionString);
-		};
-	}
+		}
+
+		return functionString;
+	};
 
 	return fn;
 };
