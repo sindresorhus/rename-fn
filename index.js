@@ -13,8 +13,6 @@ module.exports = (fn, name) => {
 	// Cache the string to prevent a recursive function
 	const functionString = fn.toString();
 
-	const edgeCaseMethodNameReg = /^(get|set|async|function)/;
-
 	fn.toString = function toString() {
 		// Make sure that the function is not:
 		//	1. An arrow function (can't have a name)
@@ -29,6 +27,8 @@ module.exports = (fn, name) => {
 				)
 			) || (functionString.startsWith('class') && !functionString.replace(/class|\/\*[^]*?\*\/|\/\/.*?\n|\s/g, '').startsWith('{'))
 		) {
+			const edgeCaseMethodNameReg = /^(get|set|async|function)/;
+
 			// The function can fall in 3 categories:
 			//	1. Classes
 			//	2. Not a class, or a method starting with get/set (all other functions and methods)
