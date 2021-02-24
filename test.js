@@ -191,8 +191,8 @@ this.stuff = stuff;
 		}
 	];
 	/* eslint-enable */
-	fnStringCases.forEach(element => {
+	for (const element of fnStringCases) {
 		element.function = m(element.function, element.name);
 		t.is(element.function.toString(), element.string);
-	});
+	}
 });
