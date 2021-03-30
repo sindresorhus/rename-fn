@@ -200,6 +200,16 @@ this.stuff = stuff;
 			() {} }).hello,
 			name: 'hello2',
 			string: 'hello2\n			//\n			() {}'
+		},
+		{
+			function: { async a() {} }.a,
+			name: 'b',
+			string: 'async b() {}'
+		},
+		{
+			function: { async asyncA() {} }.asyncA,
+			name: 'asyncB',
+			string: 'async asyncB() {}'
 		}
 	];
 	/* eslint-enable */
