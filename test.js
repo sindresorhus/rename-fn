@@ -188,6 +188,18 @@ this.stuff = stuff;
 			function: String,
 			name: 'myString',
 			string: 'function myString() { [native code] }'
+		},
+		{
+			function: (class { static hello() {} }).hello,
+			name: 'hello2',
+			string: 'hello2() {}'
+		},
+		{
+			function: (class { static /**/hello
+			//
+			() {} }).hello,
+			name: 'hello2',
+			string: 'hello2\n			//\n			() {}'
 		}
 	];
 	/* eslint-enable */
