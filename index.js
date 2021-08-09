@@ -1,2 +1,3 @@
-'use strict';
-module.exports = (fn, name) => Object.defineProperty(fn, 'name', {value: name, configurable: true});
+export default function renameFunction(function_, name) {
+	return Object.defineProperty(function_, 'name', {value: name, configurable: true});
+}

@@ -1,37 +1,37 @@
 {
-  "name": "rename-fn",
-  "version": "1.0.0",
-  "description": "Rename a function",
-  "license": "MIT",
-  "repository": "sindresorhus/rename-fn",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=4"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "rename",
-    "function",
-    "func",
-    "fn",
-    "set",
-    "infer",
-    "change"
-  ],
-  "devDependencies": {
-    "ava": "*",
-    "xo": "*"
-  },
-  "xo": {
-    "esnext": true
-  }
+	"name": "rename-fn",
+	"version": "1.0.0",
+	"description": "Rename a function",
+	"license": "MIT",
+	"repository": "sindresorhus/rename-fn",
+	"funding": "https://github.com/sponsors/sindresorhus",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": "./index.js",
+	"engines": {
+		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"rename",
+		"function",
+		"func",
+		"fn",
+		"set",
+		"infer",
+		"change"
+	],
+	"devDependencies": {
+		"ava": "^3.15.0",
+		"xo": "^0.44.0"
+	}
 }

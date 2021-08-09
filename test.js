@@ -1,9 +1,9 @@
 import test from 'ava';
-import m from './';
+import renameFunction from './index.js';
 
-test(t => {
+test('main', t => {
 	function foo() {}
 	t.is(foo.name, 'foo');
-	m(foo, 'unicorn');
+	renameFunction(foo, 'unicorn');
 	t.is(foo.name, 'unicorn');
 });
