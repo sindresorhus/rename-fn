@@ -20,7 +20,8 @@ console.log(foo.name);
 //=> 'unicorn' 😁
 ```
 */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export default function renameFunction<F extends Function>(
 	function_: F,
 	name: string
-): F
+): F;
