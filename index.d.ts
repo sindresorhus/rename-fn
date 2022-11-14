@@ -1,7 +1,9 @@
 /**
-Rename a function
+Rename a function.
+
 @param function_ - The function to rename.
 @param name - The new name.
+
 @example
 ```
 import renameFunction from 'rename-fn';
