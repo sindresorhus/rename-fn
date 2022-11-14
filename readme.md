@@ -2,12 +2,12 @@
 
 > Rename a function
 
-JavaScript engines are very good at [inferring function names](http://www.2ality.com/2015/09/function-names-es6.html). You probably don't need this unless you want a different name.
+JavaScript engines are good at [inferring function names](http://www.2ality.com/2015/09/function-names-es6.html). You probably don't need this unless you want a different name.
 
 ## Install
 
-```
-$ npm install --save rename-fn
+```sh
+npm install rename-fn
 ```
 
 ## Usage
