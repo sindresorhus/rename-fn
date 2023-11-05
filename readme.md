@@ -47,4 +47,4 @@ The new name.
 
 ## Related
 
-- [mimic-fn](https://github.com/sindresorhus/mimic-fn) - Make a function mimic another one
+- [mimic-function](https://github.com/sindresorhus/mimic-function) - Make a function mimic another one
